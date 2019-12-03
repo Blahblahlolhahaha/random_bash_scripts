@@ -1,4 +1,5 @@
 while true
+clear
 do
 	echo What do you want to edit today? 1\)ssh 2\)vsftpd 3\)chroot_list 4\)tftp 5\)httpd 6\)hosts 7\)squid
 	read choice
@@ -37,8 +38,7 @@ do
 	then
 		echo 1\)edit config 2\)create new config 3\)create new file 4\)htpasswd
 		read apache
-		if [ $apache = "1"];
-		then 
+		if [ $apache = "1" ]; then 
 			vim /etc/httpd/conf/httpd.conf
 		elif [ $apache = "2" ];
 		then
@@ -51,7 +51,7 @@ do
 			read new
 			mkdir /var/www/$new
 			vim /var/www/$new/$new.html
-		elif [ $apahce = "4" ];
+		elif [ $apache = "4" ];
 		then 
 			echo username:
 			read username
@@ -59,11 +59,11 @@ do
 			read filename
 			echo 1\)bcrypt 2\)md5
 			read cipher
-			echo first time?
+			echo first time 1\)Yes 2\)No?
 			read first
-			if [ $cipher = "1"];
+			if [ $cipher = "1 " ];
 			then
-				if [ $first = "1"];
+				if [ $first = "1" ];
 				then
 					htpasswd -c -B /etc/httpd/conf/$filename $username	
 				else
@@ -79,6 +79,13 @@ do
 				fi
 			fi
 		fi
+	elif [ $choice = "6" ]; then
+		echo Current hostname: 
+		hostnamectl
+		echo Enter new hostname: 
+		read $newhostname
+		hostnamectl -set-hostname $newhostname
+		echo ${newhostname} set
 		
 	elif [ $choice = "7" ];
 	then
