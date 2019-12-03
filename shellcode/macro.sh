@@ -1,7 +1,7 @@
 while true
 clear
 do
-	echo What do you want to edit today? 1\)ssh 2\)vsftpd 3\)chroot_list 4\)tftp 5\)httpd 6\)hosts 7\)squid
+	echo What do you want to edit today? 1\)ssh 2\)vsftpd 3\)chroot_list 4\)tftp 5\)httpd 6\)hosts 7\)squid 8\) add hosts
 	read choice
 	if [ $choice = "1" ];
 	then
@@ -91,6 +91,14 @@ do
 	then
 		vim /etc/squid/squid.conf
 		systemctl restart squid
+	elif [ $choice = "8" ];
+	then
+		echo Ip Address:
+		read ip
+		echo Name:
+		read name
+		echo $ip    $name >> /etc/hosts
+		
 	fi
 
 				
