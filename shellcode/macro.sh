@@ -83,10 +83,10 @@ do
 		echo Current hostname: 
 		hostnamectl
 		echo Enter new hostname: 
-		read $newhostname
-		hostnamectl -set-hostname $newhostname
+		read newhostname
+		nmcli general hostname $newhostname
 		echo ${newhostname} set
-		
+		service systemd-hostnamed restart
 	elif [ $choice = "7" ];
 	then
 		vim /etc/squid/squid.conf
