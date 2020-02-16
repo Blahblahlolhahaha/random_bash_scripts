@@ -114,11 +114,9 @@ do
         elif [ $boom = "3" ];
         then
             vim /etc/pam.d/login
-        fi
         elif [ $boom = "4" ];
         then
             vim /etc/pam.d/system-auth
-        fi
         elif [ $boom = "5" ];
         then
             vim /etc/security/time.conf
@@ -191,6 +189,7 @@ testpc          IN A 172.16.108.99\n"
             
         else
             firewall-cmd --add-service=$service --permanent && firewall-cmd --add-port=$port/tcp --permanent && firewall-cmd --reload
+	fi
     elif [ $choice = "7" ];
         echo Please input service,followed by port number if port is not needed, press 0
         read service
