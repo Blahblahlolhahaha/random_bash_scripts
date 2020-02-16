@@ -114,11 +114,9 @@ do
         elif [ $boom = "3" ];
         then
             vim /etc/pam.d/login
-        fi
         elif [ $boom = "4" ];
         then
             vim /etc/pam.d/system-auth
-        fi
         elif [ $boom = "5" ];
         then
             vim /etc/security/time.conf
