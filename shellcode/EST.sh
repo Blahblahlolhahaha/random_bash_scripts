@@ -1,12 +1,12 @@
-while true:
+while [ true ];
 do 
     clear # Clear the screen after each operation
     # main menu
     echo what do you want to do today? 1\)Configure Apache 2\)Configure logging 3\)User control 4\)Forward Zone 5\)Reverse Zone 6\)Firewall add 7\) Firewall Remove 8\)Exit
     read choice
-    if [ $choice = "1"];
+    if [ $choice = "1" ];
     then
-        echo 1\)edit config 2\)create new config 3\)create new file 4\)htpasswd
+        echo 1\)edit config 2\)create new config 3\)create new file 4\)htpasswd 5\)Exit
 		read apache
 		if [ $apache = "1" ]; then 
 			vim /etc/httpd/conf/httpd.conf
@@ -48,6 +48,9 @@ do
 					htpasswd -m /etc/httpd/conf/$filename $username
 				fi
 			fi
+        elif [ $apache = "5" ];
+        then
+            continue
         systemctl restart httpd
 		fi
     elif [ $choice = "2" ];
@@ -75,7 +78,7 @@ do
         fi
     elif [ $choice = "3" ];
     then
-        echo 1\)Set maxlogins 2\)Set process limit 3\)Login 4\)System Authentication 5\)Time 3\) Exit
+        echo 1\)Set maxlogins 2\)Set process limit 3\)Login 4\)System Authentication 5\)Time 6\) Exit
         read boom
         if [ $boom = "1" ];
         then
@@ -102,7 +105,7 @@ do
             read hardness
             echo number of process:
             read num
-            if [ $hardness = "1"];
+            if [ $hardness = "1" ];
             then
                 echo $user  hard    nproc   $num >> /etc/security/limits.conf
             elif [ $hardness = "2" ];
@@ -114,16 +117,14 @@ do
         elif [ $boom = "3" ];
         then
             vim /etc/pam.d/login
-        fi
         elif [ $boom = "4" ];
         then
             vim /etc/pam.d/system-auth
-        fi
         elif [ $boom = "5" ];
         then
             vim /etc/security/time.conf
         fi
-    elif [ $choice = "4"];
+    elif [ $choice = "4" ];
     then
         echo Enter zone name:
         read zone
@@ -150,7 +151,7 @@ client			IN A 172.16.108.128\n
 testpc          IN A 172.16.108.99\n"
         read accept
         vim /var/named/$zone.zone
-    elif [ $choice = "5"];
+    elif [ $choice = "5" ];
     then
         echo Enter zone name: 
         read zone
@@ -182,16 +183,18 @@ testpc          IN A 172.16.108.99\n"
         read accept
         vim /var/named/$zone.zone
     elif [ $choice = "6" ];
+    then
         echo Please input service,followed by port number if port is not needed, press 0
         read service
         read port
         if [ $port = "0" ];
         then
             firewall-cmd --add-service=$service --permanent && firewall-cmd --reload
-            
         else
             firewall-cmd --add-service=$service --permanent && firewall-cmd --add-port=$port/tcp --permanent && firewall-cmd --reload
+        fi
     elif [ $choice = "7" ];
+    then
         echo Please input service,followed by port number if port is not needed, press 0
         read service
         read port
@@ -202,5 +205,8 @@ testpc          IN A 172.16.108.99\n"
         else
             firewall-cmd --remove-service=$service --permanent && firewall-cmd --remove-port=$port/tcp --permanent && firewall-cmd --reload
         fi
+    elif [ $choice = "8" ];
+    then
+        break
     fi
 done
