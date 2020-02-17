@@ -181,7 +181,7 @@ zone \"$reverse.in-addr.arpa\" IN {
 128 IN PTR
 99  IN PTR" 
         read accept
-        vim /var/named/$zone.zone
+        vim /var/named/$ip.zone
     elif [ $choice = "6" ];
     then
         echo Please input service,followed by port number if port is not needed, press 0
