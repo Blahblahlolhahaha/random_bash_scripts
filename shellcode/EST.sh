@@ -138,17 +138,17 @@ do
         vim /etc/named.conf
         echo "Copy the following again. Press enter once you are done (CHANGE THE VALUE LATER HOR!)"
         echo -e "\$TTL 86400
-$zone.       IN SOA server root (\n
-                    42   ; serial\n
-                    3H   ; refresh\n
-                    15M  ; retry\n
-                    1W   ; expiry\n
-                    1D ) ; minimum\n
-$zone.     	IN   NS server\n
+$zone.       IN SOA server root (
+                    42   ; serial
+                    3H   ; refresh
+                    15M  ; retry
+                    1W   ; expiry
+                    1D ) ; minimum
+$zone.     	IN   NS server
 
-server			IN A 172.16.108.88\n
-client			IN A 172.16.108.128\n
-testpc          IN A 172.16.108.99\n"
+server			IN A 172.16.108.88
+client			IN A 172.16.108.128
+testpc          	IN A 172.16.108.99"
         read accept
         vim /var/named/$zone.zone
     elif [ $choice = "5" ];
@@ -160,26 +160,26 @@ testpc          IN A 172.16.108.99\n"
         echo Enter reversed three octets of your ip: 
         read reverse
         echo -e "Please copy the following:
-        zone \"$reverse.inaddr.arpa\" IN {\n
-            type master;\n
-            file \"$ip.zone\";\n
-        };\n"
+zone \"$reverse.in-addr.arpa\" IN {
+	type master;
+        file \"$ip.zone\";
+};"
         echo press enter to continue:
         read accept
         vim /etc/named.conf
         echo "Copy the following again. Press enter once you are done (CHANGE THE VALUE LATER HOR!)"
         echo -e "\$TTL 86400\n
-@       IN SOA server.$zone root.server.$zone (\n
-                42   ; serial\n
-                3H   ; refresh\n
-                15M  ; retry\n
-                1W   ; expiry\n
-                1D ) ; minimum\n
-        IN   NS server.$zone\n
+@       IN SOA server.$zone. root.server.$zone. (
+                42   ; serial
+               	28800   ; refresh
+                14400  ; retry
+                3600000   ; expiry
+                86400 ) ; minimum
+        IN   NS server.$zone.
  
-        88 IN PTR\n
-        128 IN PTR\n
-        99  IN PTR\n" 
+88 IN PTR
+128 IN PTR
+99  IN PTR" 
         read accept
         vim /var/named/$zone.zone
     elif [ $choice = "6" ];
