@@ -129,10 +129,10 @@ do
         echo Enter zone name:
         read zone
         echo -e "Please copy the following:
-        zone \"$zone\" IN {\n
-            type master;\n
-            file \"$zone.zone\";\n
-        };\n"
+zone \"$zone\" IN {\n
+    type master;\n
+    file \"$zone.zone\";\n
+};\n"
         echo press enter to continue:
         read accept
         vim /etc/named.conf
@@ -174,7 +174,7 @@ zone \"$reverse.in-addr.arpa\" IN {
                	28800   ; refresh
                 14400  ; retry
                 3600000   ; expiry
-                86400 ) ; minimum
+                86400) ; minimum
         IN   NS server.$zone.
  
 88 IN PTR
